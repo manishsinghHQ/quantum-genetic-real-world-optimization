@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import time
 
 # Qiskit
-from qiskit import QuantumCircuit, Aer, execute
+from qiskit import QuantumCircuit
+from qiskit_aer import Aer
+from qiskit import transpile
+from qiskit_aer import AerSimulator
 
 # =========================
 # CONFIG
@@ -159,18 +162,18 @@ def run_de():
 
 # =========================
 # QISKIT DEMO
-# =========================
+#------------------------------------------------------------------------------------------------------------------------------------------
 def run_qiskit_demo(n):
     qc = QuantumCircuit(n)
     qc.h(range(n))
     qc.measure_all()
 
-    backend = Aer.get_backend('qasm_simulator')
-    result = execute(qc, backend, shots=512).result()
+    simulator = AerSimulator()
+    compiled = transpile(qc, simulator)
+    result = simulator.run(compiled, shots=512).result()
     counts = result.get_counts()
 
     return qc, counts
-
 # =========================
 # MAIN UI
 # =========================
