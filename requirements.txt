@@ -3,4 +3,5 @@ numpy
 pandas
 matplotlib
 qiskit
+pylatexenc
 qiskit-aer
